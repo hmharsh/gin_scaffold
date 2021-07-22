@@ -5,3 +5,6 @@ based on: https://www.youtube.com/watch?v=LOn1GUsjOF4
 - https://github.com/vikramaroskar/Go_rest_gin
 - https://github.com/shohiebsense/Go-Gin-REST-API
 
+### Docker setup
+- https://github.com/udaya2899/go-gin-starter
+
