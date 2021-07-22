@@ -14,7 +14,7 @@ RUN go mod download
 COPY . .
 
 # Unit tests
-RUN CGO_ENABLED=0 go test -v ./httpd
+RUN CGO_ENABLED=0 go test -v  ./...
 
 # Build the Go app
 RUN CGO_ENABLED=0 go build -o ./out/ginapp ./httpd
