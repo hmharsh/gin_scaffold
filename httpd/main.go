@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"fmt"
 	"ginapp/configuration"
 	"ginapp/connection"
 	"ginapp/httpd/handler"
@@ -37,16 +38,16 @@ func main() {
 
 	log.Infof("Adding the endpoints and ApiGroup")
 	r.GET("/ping", handler.PingGet())
-	restApi := goginrestapi.New(repository)
+	restApi := goginrestapi.New()
 	v1 := r.Group("/v1")
 	{
-		v1.GET("/goginrestapi", handler.GoGinRestApiGet(restApi))
-		v1.POST("/goginrestapi", handler.GoGinRestApiPost(restApi))
+		v1.GET("/goginrestapi", handler.GoGinRestApiGet(restApi, repository))
+		v1.POST("/goginrestapi", handler.GoGinRestApiPost(restApi, repository))
 	}
 
 	log.Infof("Starting gin webserver")
 	//Listen and serve on 0.0.0.0:8080
-	if err := r.Run(); err != nil {
+	if err := r.Run(fmt.Sprintf(":%d", config.Server.Port)); err != nil {
 		log.Fatalf("Cannot start server, err: %v", err)
 	}
 }

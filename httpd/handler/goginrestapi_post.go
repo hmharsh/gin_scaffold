@@ -2,6 +2,7 @@ package handler
 
 import (
 	"ginapp/platrorm/goginrestapi"
+	"ginapp/storage"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -12,7 +13,7 @@ type goGinRestApiPostRequest struct {
 	Post  string `json:"post"`
 }
 
-func GoGinRestApiPost(restApi goginrestapi.Adder) gin.HandlerFunc {
+func GoGinRestApiPost(restApi goginrestapi.Adder, repository *storage.Repository) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		requestBody := goGinRestApiPostRequest{}
 		c.Bind(&requestBody)

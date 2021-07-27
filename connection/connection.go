@@ -11,15 +11,14 @@ import (
 
 // NewConnection creates a new connection from the given configs
 func NewConnection(dbConfig configuration.DatabaseConfiguration) (*sql.DB, error) {
-
-	//psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+"password=%s dbname=%s sslmode=disable",
-	//	dbConfig.Host, dbConfig.Port, dbConfig.User, dbConfig.Password, dbConfig.Name)
-	dsn := fmt.Sprintf("%s:%s@/%s", dbConfig.User, dbConfig.Password, dbConfig.Name) //"user:password@/dbname"
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", dbConfig.User, dbConfig.Password, dbConfig.Host, dbConfig.Port, dbConfig.Name) //"user:password@/dbname"
 	db, err := sql.Open("mysql", dsn)
 	if err != nil {
-		return nil, fmt.Errorf("Failed to open connection to Database, err: %v", err)
+		return nil, fmt.Errorf("failed to open connection to the database, err: %v", err)
 	}
-
+	err = db.Ping()
+	if err != nil {
+		return nil, fmt.Errorf("failed to connect to the database, err: %v", err)
+	}
 	return db, nil
-
 }

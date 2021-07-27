@@ -15,6 +15,7 @@ type Configuration struct {
 
 // ServerConfiguration exported
 type ServerConfiguration struct {
+	Host string
 	Port int
 }
 

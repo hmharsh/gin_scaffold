@@ -1,7 +1,5 @@
 package goginrestapi
 
-import "ginapp/storage"
-
 type Getter interface {
 	GetAll() []Item
 }
@@ -19,7 +17,8 @@ type Repo struct {
 	Items []Item
 }
 
-func New(repository *storage.Repository) *Repo {
+//func New(repository *storage.Repository) *Repo {
+func New() *Repo {
 	return &Repo{
 		Items: []Item{},
 	}
